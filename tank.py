@@ -1,76 +1,44 @@
 import turtle
 
-wn = turtle.Screen()
-wn.tracer(100)
+screen = turtle.Screen()
+screen.tracer(100)
 
 
 # criando e registrando o formato dos tanques
 def tank_shape():
+    direction = [270, 0, 270, 0, 90, 180, 270, 180, 90, 180,
+                 270, 180, 90, 180, 270, 0, 90, 0, 90]
+    steps = [3, 5, 6, 6, 20, 6, 4, 4, 12, 2, 12, 4, 4, 6, 20, 6, 6, 5, 3]
     drawing = turtle.Turtle()
     drawing.pencolor('black')
     drawing.hideturtle()
     drawing.begin_poly()
-    drawing.setheading(270)
-    drawing.forward(3)
-    drawing.setheading(0)
-    drawing.forward(5)
-    drawing.setheading(270)
-    drawing.forward(6)
-    drawing.setheading(0)
-    drawing.forward(6)
-    drawing.setheading(90)
-    drawing.forward(20)
-    drawing.setheading(180)
-    drawing.forward(6)
-    drawing.setheading(270)
-    drawing.forward(4)
-    drawing.setheading(180)
-    drawing.forward(4)
-    drawing.setheading(90)
-    drawing.forward(12)
-    drawing.setheading(180)
-    drawing.forward(2)
-    drawing.setheading(270)
-    drawing.forward(12)
-    drawing.setheading(180)
-    drawing.forward(4)
-    drawing.setheading(90)
-    drawing.forward(4)
-    drawing.setheading(180)
-    drawing.forward(6)
-    drawing.setheading(270)
-    drawing.forward(20)
-    drawing.setheading(0)
-    drawing.forward(6)
-    drawing.setheading(90)
-    drawing.forward(6)
-    drawing.setheading(0)
-    drawing.forward(5)
-    drawing.setheading(90)
-    drawing.forward(3)
+    for n in range(19):
+        drawing.setheading(direction[n])
+        drawing.forward(steps[n])
     drawing.end_poly()
     tank = drawing.get_poly()
-    wn.clear()
-    wn.tracer(100)
+    screen.clear()
+    screen.tracer(100)
     return tank
 
 
-wn.register_shape('tank', tank_shape())
+screen.register_shape('tank', tank_shape())
 
 # criação do primeiro tanque
 one = turtle.Turtle()
 one.penup()
-one.goto(-300, 0)
+one.goto(-350, 0)
 one.shape('tank')
-one.color('green')
+one.color('#2441a1')
 
 # criação do segundo tanque
 two = turtle.Turtle()
 two.penup()
-two.goto(300, 0)
+two.goto(350, 0)
 two.setheading(180)
 two.shape('tank')
-two.color('red')
+two.color('#a83232')
 
 
 # movimentação do primeiro tanque
