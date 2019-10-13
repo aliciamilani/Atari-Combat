@@ -1,3 +1,4 @@
+from support import draw
 import turtle
 
 screen = turtle.Screen()
@@ -9,15 +10,15 @@ def tank_shape():
     direction = [270, 0, 270, 0, 90, 180, 270, 180, 90, 180,
                  270, 180, 90, 180, 270, 0, 90, 0, 90]
     steps = [3, 5, 6, 6, 20, 6, 4, 4, 12, 2, 12, 4, 4, 6, 20, 6, 6, 5, 3]
-    drawing = turtle.Turtle()
-    drawing.pencolor('black')
-    drawing.hideturtle()
-    drawing.begin_poly()
+    form = turtle.Turtle()
+    form.pencolor('black')
+    form.hideturtle()
+    form.begin_poly()
     for n in range(19):
-        drawing.setheading(direction[n])
-        drawing.forward(steps[n])
-    drawing.end_poly()
-    tank = drawing.get_poly()
+        form.setheading(direction[n])
+        form.forward(steps[n])
+    form.end_poly()
+    tank = form.get_poly()
     screen.clear()
     screen.tracer(100)
     return tank
@@ -26,19 +27,11 @@ def tank_shape():
 screen.register_shape('tank', tank_shape())
 
 # criação do primeiro tanque
-one = turtle.Turtle()
-one.penup()
-one.goto(-350, 0)
-one.shape('tank')
-one.color('#2441a1')
+one = draw('tank', 1, '#2441a1', -350, 0)
 
 # criação do segundo tanque
-two = turtle.Turtle()
-two.penup()
-two.goto(350, 0)
+two = draw('tank', 1, '#a83232', 350, 0)
 two.setheading(180)
-two.shape('tank')
-two.color('#a83232')
 
 
 # movimentação do primeiro tanque

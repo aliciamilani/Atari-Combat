@@ -1,3 +1,4 @@
+from support import draw
 import tank
 import turtle
 
@@ -16,17 +17,6 @@ def create_screen(title, width, height):
     screen.setup(width=width, height=height)
     screen.tracer(100000)
     return screen
-
-
-def create_wall(x, y, width, length, color):
-    wall = turtle.Turtle()
-    wall.speed(0)
-    wall.shape('square')
-    wall.color(color)
-    wall.shapesize(stretch_wid=width, stretch_len=length)
-    wall.penup()
-    wall.goto(x, y)
-    return wall
 
 
 screen = create_screen('ATARI COMBAT', 1000, 600)
@@ -57,7 +47,7 @@ for line in field:
     for one in line:
         # verificando se é 1, ou seja, se é um bloco
         if (one == '1'):
-            wall = create_wall(x, y, 1, 1, '#ffe2b0')
+            wall = draw('square', 1, '#ffe2b0', x, y)
             wall_list.append(wall)
         x += 8.3
     y -= 16.3
