@@ -14,7 +14,7 @@ def create_screen(title, width, height):
     screen.title(title)
     screen.bgcolor('#5e9e4a')
     screen.setup(width=width, height=height)
-    screen.tracer(100)
+    screen.tracer(100000)
     return screen
 
 
@@ -46,6 +46,9 @@ root.protocol('WM_DELETE_WINDOW', close_screen)
 # lendo txt para gerar o labirinto
 field = open('field.txt', 'r')
 
+# matriz dos blocos para verificar a colisão deles com os tanques
+wall_list = []
+
 y = 275
 # percorrendo cada linha do txt
 for line in field:
@@ -54,9 +57,17 @@ for line in field:
     for one in line:
         # verificando se é 1, ou seja, se é um bloco
         if (one == '1'):
-            create_wall(x, y, 1, 1, '#ffe2b0')
+            wall = create_wall(x, y, 1, 1, '#ffe2b0')
+            wall_list.append(wall)
         x += 8.3
     y -= 16.3
 
+
 while playing:
     screen.update()
+    # colisão dos tanques com as paredes
+    for num in range(len(wall_list)):
+        if tank.one.distance(wall_list[num]) <= 25:
+            tank.one.forward(-7)
+        if tank.two.distance(wall_list[num]) <= 25:
+            tank.two.forward(-7)
