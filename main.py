@@ -46,8 +46,7 @@ shot.penup()
 shot.speed(0)
 
 shot_one_list = []
-
-shooter
+shot_two_list = []
 
 #criando bala 1
 def create_shooter_one():
@@ -70,7 +69,30 @@ def shooter_one():
     create_shooter_one()
     shooting_one()
 
+
+#criando bala 2
+def create_shooter_two():
+    shot_two = shot.clone()
+    shot_two.shapesize(0.16, 0.16)
+    shot_two.color('#a83232')
+    shot_two.goto(tank.two.xcor(), tank.two.ycor())
+    shot_two_list.append(shot_two)
+
+def shooting_two():
+    x = 0
+    y = 0
+    for angle in direction:
+        y = sin(radians(angle)) * 15
+        x = cos(radians(angle)) * 15
+    shot_two_list[-1].dx = x
+    shot_two_list[-1].dy = y
+
+def shooter_two():
+    create_shooter_two()
+    shooting_two()
+
 screen.onkeypress(shooter_one,'space')
+screen.onkeypress(shooter_two, 0)
 
 playing = True
 
@@ -94,3 +116,7 @@ while playing:
     for angles in range(len(shot_one_list)):
         shot_one_list[angles].setx(shot_one_list[angles].xcor() + shot_one_list[angles].dx)
         shot_one_list[angles].sety(shot_one_list[angles].ycor() + shot_one_list[angles].dy)
+
+    for angles in range(len(shot_two_list)):
+        shot_two_list[angles].setx(shot_two_list[angles].xcor() + shot_two_list[angles].dx)
+        shot_two_list[angles].sety(shot_two_list[angles].ycor() + shot_two_list[angles].dy)
