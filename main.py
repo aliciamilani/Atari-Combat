@@ -2,7 +2,11 @@ from support import draw
 import sys
 import tank
 import turtle
+from math import sin, cos, radians
 
+direction = [270, 0, 270, 0, 90, 180, 270, 180, 90, 180,
+                 270, 180, 90, 180, 270, 0, 90, 0, 90]
+                 
 screen = turtle.Screen()
 screen.title('ATARI: COMBAT TANK')
 screen.bgcolor('#5e9e4a')
@@ -36,6 +40,35 @@ screen.onkeypress(tank.rotate_left_2, 'Left')
 screen.onkeypress(tank.rotate_right_2, 'Right')
 screen.onkeypress(tank.go_ahead_2, 'Up')
 
+#criando tiro
+shot = turtle.Turtle('square')
+shot.penup()
+shot.speed(0)
+
+shot_one_list = []
+
+#criando bala 1
+def create_shooter_one():
+    shot_one = shot.clone()
+    shot_one.shapesize(0.16, 0.16)
+    shot_one.color('#2441a1')
+    shot_one.goto(tank.one.xcor(), tank.one.ycor())
+    shot_one_list.append(shot_one)
+
+def shooting_one():
+    x = 0
+    y = 0
+    for angle in direction:
+        y = sin(radians(angle)) * 15
+        x = cos(radians(angle)) * 15
+    shot_one_list[-1].dx = x
+    shot_one_list[-1].dy = y
+    
+def shooter_one():
+    create_shooter_one()
+    shooting_one()
+
+screen.onkeypress(shooter_one,'space')
 
 playing = True
 
