@@ -51,6 +51,8 @@ def rotate_right_1():
 
 def go_ahead_1():
     one.forward(5)
+    if one.distance(two) <= 27:
+        one.forward(-20)
 
 
 # movimentação do segundo tanque
@@ -70,3 +72,5 @@ def rotate_right_2():
 
 def go_ahead_2():
     two.forward(5)
+    if two.distance(one) <= 27:
+        two.forward(-20)
