@@ -6,7 +6,7 @@ from math import sin, cos, radians
 
 direction = [270, 0, 270, 0, 90, 180, 270, 180, 90, 180,
                  270, 180, 90, 180, 270, 0, 90, 0, 90]
-                 
+
 screen = turtle.Screen()
 screen.title('ATARI: COMBAT TANK')
 screen.bgcolor('#5e9e4a')
@@ -46,6 +46,8 @@ shot.penup()
 shot.speed(0)
 
 shot_one_list = []
+
+shooter
 
 #criando bala 1
 def create_shooter_one():
@@ -88,3 +90,7 @@ while playing:
             tank.one.forward(-20)
         if tank.two.distance(wall_list[num]) <= 25:
             tank.two.forward(-20)
+
+    for angles in range(len(shot_one_list)):
+        shot_one_list[angles].setx(shot_one_list[angles].xcor() + shot_one_list[angles].dx)
+        shot_one_list[angles].sety(shot_one_list[angles].ycor() + shot_one_list[angles].dy)
