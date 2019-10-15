@@ -16,14 +16,14 @@ field = open(sys.argv[1], 'r')
 # matriz dos blocos para verificar a colisão deles com os tanques
 wall_list = []
 
-y = 275
+y = 210
 # percorrendo cada linha do txt
 for line in field:
     x = -392
     # percorrendo cada item da linha
     for one in line:
         # verificando se é 1, ou seja, se é um bloco
-        if (one == '1'):
+        if one == '1':
             wall = draw('square', 1, '#ffc6a1', x, y)
             wall_list.append(wall)
         x += 8.3
@@ -33,12 +33,11 @@ screen.listen()
 screen.onkeypress(tank.rotate_left_1, 'a')
 screen.onkeypress(tank.rotate_right_1, 'd')
 screen.onkeypress(tank.go_ahead_1, 'w')
-screen.onkeypress(bullet.shooter_one, 'g')
+screen.onkeypress(bullet.shooter_one, 'space')
 
 screen.onkeypress(tank.rotate_left_2, 'Left')
 screen.onkeypress(tank.rotate_right_2, 'Right')
 screen.onkeypress(tank.go_ahead_2, 'Up')
-screen.onkeypress(bullet.shooter_one, 'space')
 screen.onkeypress(bullet.shooter_two, 'o')
 
 playing = True
@@ -56,30 +55,32 @@ while playing:
     screen.update()
 
     # colisão dos tanques com as paredes
-    for num in range(len(wall_list)):
-        if tank.one.distance(wall_list[num]) <= 25:
+    for ind in range(len(wall_list)):
+        if tank.one.distance(wall_list[ind]) <= 25:
             tank.one.forward(-20)
-        if tank.two.distance(wall_list[num]) <= 25:
+        if tank.two.distance(wall_list[ind]) <= 25:
             tank.two.forward(-20)
 
-    # colisão tiro 1 no tanque 2
-    for o in range(len(bullet.shot_one_list)):
-        if (tank.two.distance(bullet.shot_one_list[o])) <= 25:
-            bullet.shot_one_list[o].hideturtle()
+    # colisão projétil 1 com o tanque 2
+    for ind in range(len(bullet.shot_one_list)):
+        if (tank.two.distance(bullet.shot_one_list[ind])) <= 25:
+            bullet.shot_one_list[ind].hideturtle()
 
-    # colisão tiro 2 no tanque 1
-    for t in range(len(bullet.shot_two_list)):
-        if (tank.one.distance(bullet.shot_two_list[t])) <= 25:
-            bullet.shot_two_list[t].hideturtle()
+    # colisão projétil 2 com o tanque 1
+    for ind in range(len(bullet.shot_two_list)):
+        if (tank.one.distance(bullet.shot_two_list[ind])) <= 25:
+            bullet.shot_two_list[ind].hideturtle()
 
-    for angles in range(len(bullet.shot_one_list)):
-        bullet.shot_one_list[angles].setx(bullet.shot_one_list[angles].xcor() +
-                                          bullet.shot_one_list[angles].dx)
-        bullet.shot_one_list[angles].sety(bullet.shot_one_list[angles].ycor() +
-                                          bullet.shot_one_list[angles].dy)
+    # movimentação do projétil 1
+    for ind in range(len(bullet.shot_one_list)):
+        bullet.shot_one_list[ind].setx(bullet.shot_one_list[ind].xcor() +
+                                       bullet.shot_one_list[ind].dx)
+        bullet.shot_one_list[ind].sety(bullet.shot_one_list[ind].ycor() +
+                                       bullet.shot_one_list[ind].dy)
 
-    for angles in range(len(bullet.shot_two_list)):
-        bullet.shot_two_list[angles].setx(bullet.shot_two_list[angles].xcor() +
-                                          bullet.shot_two_list[angles].dx)
-        bullet.shot_two_list[angles].sety(bullet.shot_two_list[angles].ycor() +
-                                          bullet.shot_two_list[angles].dy)
+    # movimentação do projétil 2
+    for ind in range(len(bullet.shot_two_list)):
+        bullet.shot_two_list[ind].setx(bullet.shot_two_list[ind].xcor() +
+                                       bullet.shot_two_list[ind].dx)
+        bullet.shot_two_list[ind].sety(bullet.shot_two_list[ind].ycor() +
+                                       bullet.shot_two_list[ind].dy)
