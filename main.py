@@ -1,11 +1,8 @@
-from support import draw
+import bullet
 import sys
+from support import draw
 import tank
 import turtle
-from math import sin, cos, radians
-
-direction = [270, 0, 270, 0, 90, 180, 270, 180, 90, 180,
-             270, 180, 90, 180, 270, 0, 90, 0, 90]
 
 screen = turtle.Screen()
 screen.title('ATARI: COMBAT TANK')
@@ -36,72 +33,12 @@ screen.listen()
 screen.onkeypress(tank.rotate_left_1, 'a')
 screen.onkeypress(tank.rotate_right_1, 'd')
 screen.onkeypress(tank.go_ahead_1, 'w')
+screen.onkeypress(bullet.shooter_one, 'g')
+
 screen.onkeypress(tank.rotate_left_2, 'Left')
 screen.onkeypress(tank.rotate_right_2, 'Right')
 screen.onkeypress(tank.go_ahead_2, 'Up')
-
-# criando tiro
-shot = turtle.Turtle('square')
-shot.penup()
-shot.speed(0)
-
-shot_one_list = []
-shot_two_list = []
-
-# criando bala 1
-
-
-def create_shooter_one():
-    shot_one = shot.clone()
-    shot_one.shapesize(0.16, 0.16)
-    shot_one.color('#2441a1')
-    shot_one.goto(tank.one.xcor(), tank.one.ycor())
-    shot_one_list.append(shot_one)
-
-
-def shooting_one():
-    x = 0
-    y = 0
-    for angle in direction:
-        y = sin(radians(angle)) * 15
-        x = cos(radians(angle)) * 15
-    shot_one_list[-1].dx = x
-    shot_one_list[-1].dy = y
-
-
-def shooter_one():
-    create_shooter_one()
-    shooting_one()
-
-
-# criando bala 2
-
-
-def create_shooter_two():
-    shot_two = shot.clone()
-    shot_two.shapesize(0.16, 0.16)
-    shot_two.color('#a83232')
-    shot_two.goto(tank.two.xcor(), tank.two.ycor())
-    shot_two_list.append(shot_two)
-
-
-def shooting_two():
-    x = 0
-    y = 0
-    for angle in direction:
-        y = sin(radians(angle)) * 15
-        x = cos(radians(angle)) * 15
-    shot_two_list[-1].dx = x
-    shot_two_list[-1].dy = y
-
-
-def shooter_two():
-    create_shooter_two()
-    shooting_two()
-
-
-screen.onkeypress(shooter_one, 'space')
-screen.onkeypress(shooter_two, 0)
+screen.onkeypress(bullet.shooter_two, 'space')
 
 playing = True
 
@@ -123,14 +60,14 @@ while playing:
         if tank.two.distance(wall_list[num]) <= 25:
             tank.two.forward(-20)
 
-    for angles in range(len(shot_one_list)):
-        shot_one_list[angles].setx(shot_one_list[angles].xcor() +
-                                   shot_one_list[angles].dx)
-        shot_one_list[angles].sety(shot_one_list[angles].ycor() +
-                                   shot_one_list[angles].dy)
+    for angles in range(len(bullet.shot_one_list)):
+        bullet.shot_one_list[angles].setx(bullet.shot_one_list[angles].xcor() +
+                                          bullet.shot_one_list[angles].dx)
+        bullet.shot_one_list[angles].sety(bullet.shot_one_list[angles].ycor() +
+                                          bullet.shot_one_list[angles].dy)
 
-    for angles in range(len(shot_two_list)):
-        shot_two_list[angles].setx(shot_two_list[angles].xcor() +
-                                   shot_two_list[angles].dx)
-        shot_two_list[angles].sety(shot_two_list[angles].ycor() +
-                                   shot_two_list[angles].dy)
+    for angles in range(len(bullet.shot_two_list)):
+        bullet.shot_two_list[angles].setx(bullet.shot_two_list[angles].xcor() +
+                                          bullet.shot_two_list[angles].dx)
+        bullet.shot_two_list[angles].sety(bullet.shot_two_list[angles].ycor() +
+                                          bullet.shot_two_list[angles].dy)

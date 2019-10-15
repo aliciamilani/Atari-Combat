@@ -7,6 +7,7 @@ screen.tracer(100)
 
 # criando e registrando o formato dos tanques
 def tank_shape():
+    global direction
     direction = [270, 0, 270, 0, 90, 180, 270, 180, 90, 180,
                  270, 180, 90, 180, 270, 0, 90, 0, 90]
     steps = [3, 5, 6, 6, 20, 6, 4, 4, 12, 2, 12, 4, 4, 6, 20, 6, 6, 5, 3]
