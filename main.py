@@ -38,7 +38,8 @@ screen.onkeypress(bullet.shooter_one, 'g')
 screen.onkeypress(tank.rotate_left_2, 'Left')
 screen.onkeypress(tank.rotate_right_2, 'Right')
 screen.onkeypress(tank.go_ahead_2, 'Up')
-screen.onkeypress(bullet.shooter_two, 'space')
+screen.onkeypress(bullet.shooter_one, 'space')
+screen.onkeypress(bullet.shooter_two, 'o')
 
 playing = True
 
@@ -53,12 +54,23 @@ root.protocol('WM_DELETE_WINDOW', close_screen)
 
 while playing:
     screen.update()
+
     # colisão dos tanques com as paredes
     for num in range(len(wall_list)):
         if tank.one.distance(wall_list[num]) <= 25:
             tank.one.forward(-20)
         if tank.two.distance(wall_list[num]) <= 25:
             tank.two.forward(-20)
+
+    # colisão tiro 1 no tanque 2
+    for o in range(len(bullet.shot_one_list)):
+        if (tank.two.distance(bullet.shot_one_list[o])) <= 25:
+            bullet.shot_one_list[o].hideturtle()
+
+    # colisão tiro 2 no tanque 1
+    for t in range(len(bullet.shot_two_list)):
+        if (tank.one.distance(bullet.shot_two_list[t])) <= 25:
+            bullet.shot_two_list[t].hideturtle()
 
     for angles in range(len(bullet.shot_one_list)):
         bullet.shot_one_list[angles].setx(bullet.shot_one_list[angles].xcor() +

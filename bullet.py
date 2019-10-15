@@ -20,8 +20,8 @@ def create_shooter_one():
 def shooting_one():
     x = cos(radians(tank.one.heading())) * 15
     y = sin(radians(tank.one.heading())) * 15
-    shot_one_list[-1].dx = x 
-    shot_one_list[-1].dy = y 
+    shot_one_list[-1].dx = x
+    shot_one_list[-1].dy = y
 
 
 def shooter_one():
