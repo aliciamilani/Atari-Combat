@@ -73,6 +73,22 @@ while playing:
             ind_2.hideturtle()
             del(ind_2)
 
+    # colisão do projétil 1 com o labirinto
+    for proj_1 in bullet.shot_one_list:
+        for wall in wall_list:
+            if (wall.distance(proj_1)) <= 25:
+                proj_1.hideturtle()
+                del(proj_1)
+                break
+
+    # colisão do projétil 2 com o labirinto
+    for proj_2 in bullet.shot_two_list:
+        for wall in wall_list:
+            if (wall.distance(proj_2)) <= 25:
+                proj_2.hideturtle()
+                del(proj_2)
+                break
+
     # movimentação do projétil 1
     for ind in range(len(bullet.shot_one_list)):
         bullet.shot_one_list[ind].setx(bullet.shot_one_list[ind].xcor() +
