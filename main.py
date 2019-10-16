@@ -62,14 +62,16 @@ while playing:
             tank.two.forward(-20)
 
     # colisão projétil 1 com o tanque 2
-    for ind in range(len(bullet.shot_one_list)):
-        if (tank.two.distance(bullet.shot_one_list[ind])) <= 25:
-            bullet.shot_one_list[ind].hideturtle()
+    for ind_1 in bullet.shot_one_list:
+        if (tank.two.distance(ind_1)) <= 25:
+            ind_1.hideturtle()
+            del(ind_1)
 
     # colisão projétil 2 com o tanque 1
-    for ind in range(len(bullet.shot_two_list)):
-        if (tank.one.distance(bullet.shot_two_list[ind])) <= 25:
-            bullet.shot_two_list[ind].hideturtle()
+    for ind_2 in bullet.shot_two_list:
+        if (tank.one.distance(ind_2)) <= 25:
+            ind_2.hideturtle()
+            del(ind_2)
 
     # movimentação do projétil 1
     for ind in range(len(bullet.shot_one_list)):
