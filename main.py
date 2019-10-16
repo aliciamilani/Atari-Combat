@@ -69,22 +69,46 @@ while playing:
             tank.two.forward(-20)
 
     # colisão projétil 1 com o tanque 2
-    for ind in range(len(bullet.shot_one_list)):
-        if (tank.two.distance(bullet.shot_one_list[ind])) <= 25:
-            bullet.shot_one_list[ind].hideturtle()
+    for ind_1 in bullet.shot_one_list:
+        if (tank.two.distance(ind_1)) <= 25:
+            ind_1.hideturtle()
+            ind_1.setx(500)
+            ind_1.sety(500)
+            del(ind_1)
             score_1 += 1
             hud_score.clear()
             hud_score.write("{} : {}".format(score_1, score_2), align="center", font=(
                             "Press Start 2P", 24, "normal"))
 
+
     # colisão projétil 2 com o tanque 1
-    for ind in range(len(bullet.shot_two_list)):
-        if (tank.one.distance(bullet.shot_two_list[ind])) <= 25:
-            bullet.shot_two_list[ind].hideturtle()
+    for ind_2 in bullet.shot_two_list:
+        if (tank.one.distance(ind_2)) <= 25:
+            ind_2.hideturtle()
+            ind_2.setx(-500)
+            ind_2.sety(500)
+            del(ind_2)
             score_2 += 1
             hud_score.clear()
             hud_score.write("{} : {}".format(score_1, score_2), align="center", font=(
                             "Press Start 2P", 24, "normal"))
+
+
+    # colisão do projétil 1 com o labirinto
+    for proj_1 in bullet.shot_one_list:
+        for wall in wall_list:
+            if (wall.distance(proj_1)) <= 25:
+                proj_1.hideturtle()
+                del(proj_1)
+                break
+
+    # colisão do projétil 2 com o labirinto
+    for proj_2 in bullet.shot_two_list:
+        for wall in wall_list:
+            if (wall.distance(proj_2)) <= 25:
+                proj_2.hideturtle()
+                del(proj_2)
+                break
 
     # movimentação do projétil 1
     for ind in range(len(bullet.shot_one_list)):
