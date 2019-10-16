@@ -1,34 +1,18 @@
-import bullet
+import match
 import sys
-from support import draw
-import tank
 import turtle
 
+# criação da tela
 screen = turtle.Screen()
 screen.title('ATARI: COMBAT TANK')
 screen.bgcolor('#5e9e4a')
 screen.setup(width=800, height=600)
 screen.tracer(100000)
 
-# lendo txt para gerar o labirinto
-field = open(sys.argv[1], 'r')
+# criação do cenário
+match.create_zone(sys.argv[1])
 
-# matriz dos blocos para verificar a colisão deles com os tanques
-wall_list = []
-
-y = 210
-# percorrendo cada linha do txt
-for line in field:
-    x = -392
-    # percorrendo cada item da linha
-    for one in line:
-        # verificando se é 1, ou seja, se é um bloco
-        if one == '1':
-            wall = draw('square', 1, '#ffc6a1', x, y)
-            wall_list.append(wall)
-        x += 8.3
-    y -= 16.3
-
+<<<<<<< HEAD
 hud_score = draw("square", 1, 'white', 0, 250)
 hud_score.hideturtle()
 hud_score.penup()
@@ -36,30 +20,20 @@ hud_score.write("0 : 0", align="center", font=("Press Start 2P", 24, "normal"))
 score_1 = 0
 score_2 = 0
 
+=======
+# mapeamento das teclas
+>>>>>>> a528d2ee912b2a06fc42cfe5c51b3ea8325fad72
 screen.listen()
-screen.onkeypress(tank.rotate_left_1, 'a')
-screen.onkeypress(tank.rotate_right_1, 'd')
-screen.onkeypress(tank.go_ahead_1, 'w')
-screen.onkeypress(bullet.shooter_one, 'space')
+match.key_map(screen)
 
-screen.onkeypress(tank.rotate_left_2, 'Left')
-screen.onkeypress(tank.rotate_right_2, 'Right')
-screen.onkeypress(tank.go_ahead_2, 'Up')
-screen.onkeypress(bullet.shooter_two, 'o')
-
-playing = True
-
-
-def close_screen():
-    global playing
-    playing = not playing
-
-
+# fechamento da tela do jogo
 root = screen.getcanvas().winfo_toplevel()
-root.protocol('WM_DELETE_WINDOW', close_screen)
+root.protocol('WM_DELETE_WINDOW', match.close_screen)
 
-while playing:
+# início do jogo
+while match.playing:
     screen.update()
+<<<<<<< HEAD
 
     # colisão dos tanques com as paredes
     for ind in range(len(wall_list)):
@@ -123,3 +97,6 @@ while playing:
                                        bullet.shot_two_list[ind].dx)
         bullet.shot_two_list[ind].sety(bullet.shot_two_list[ind].ycor() +
                                        bullet.shot_two_list[ind].dy)
+=======
+    match.char_interplay()
+>>>>>>> a528d2ee912b2a06fc42cfe5c51b3ea8325fad72
