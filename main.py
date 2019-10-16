@@ -29,6 +29,13 @@ for line in field:
         x += 8.3
     y -= 16.3
 
+hud_score = draw("square", 1, 'white', 0, 250)
+hud_score.hideturtle()
+hud_score.penup()
+hud_score.write("0 : 0", align="center", font=("Press Start 2P", 24, "normal"))
+score_1 = 0
+score_2 = 0
+
 screen.listen()
 screen.onkeypress(tank.rotate_left_1, 'a')
 screen.onkeypress(tank.rotate_right_1, 'd')
@@ -65,11 +72,19 @@ while playing:
     for ind in range(len(bullet.shot_one_list)):
         if (tank.two.distance(bullet.shot_one_list[ind])) <= 25:
             bullet.shot_one_list[ind].hideturtle()
+            score_1 += 1
+            hud_score.clear()
+            hud_score.write("{} : {}".format(score_1, score_2), align="center", font=(
+                            "Press Start 2P", 24, "normal"))
 
     # colisão projétil 2 com o tanque 1
     for ind in range(len(bullet.shot_two_list)):
         if (tank.one.distance(bullet.shot_two_list[ind])) <= 25:
             bullet.shot_two_list[ind].hideturtle()
+            score_2 += 1
+            hud_score.clear()
+            hud_score.write("{} : {}".format(score_1, score_2), align="center", font=(
+                            "Press Start 2P", 24, "normal"))
 
     # movimentação do projétil 1
     for ind in range(len(bullet.shot_one_list)):
