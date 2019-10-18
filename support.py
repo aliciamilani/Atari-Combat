@@ -10,3 +10,7 @@ def draw(shape, size, color, x, y):
     element.penup()
     element.goto(x, y)
     return element
+
+
+def write(element, exp):
+    element.write(exp, align='center', font=('Press Start 2P', 24, 'normal'))
