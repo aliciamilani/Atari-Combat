@@ -2,7 +2,7 @@ import bullet
 import support
 import tank
 import turtle
-
+import random
 
 # fecha a tela
 playing = True
@@ -17,20 +17,24 @@ def close_screen():
 def create_zone(zone):
     field = open(zone, 'r')
     global wall_list
+    global not_wall_list
     wall_list = []
+    not_wall_list = []
     y = 220
     for line in field:
         x = -392
         for block in line:
             if block == '1':
                 wall_list.append(support.draw('square', 1, '#f7d4ab', x, y))
+            elif block == '0':
+                not_wall_list.append([x-8.3, y+16.3])
             x += 8.3
         y -= 16.3
 
-
 # define as funções das teclas
-def key_map(screen):
 
+
+def key_map(screen):
     # primeiro tanque
     screen.onkeypress(tank.rotate_left_1, 'a')
     screen.onkeypress(tank.rotate_right_1, 'd')
@@ -92,11 +96,15 @@ def char_interplay():
 
     global score_1
     global score_2
+
     # colisão do projétil 1 com o tanque 2
     for proj_1 in bullet.shot_one_list:
         if (tank.two.distance(proj_1)) <= 25:
             if proj_1.isvisible():
                 score_1 += 1
+                pos_random_2 = random.choice(not_wall_list)
+                tank.two.goto(pos_random_2[0], pos_random_2[1])
+
             proj_1.hideturtle()
             proj_1.goto(500, 500)
             del(proj_1)
@@ -108,6 +116,9 @@ def char_interplay():
         if (tank.one.distance(proj_2)) <= 25:
             if proj_2.isvisible():
                 score_2 += 1
+                pos_random_1 = random.choice(not_wall_list)
+                tank.one.goto(pos_random_1[0], pos_random_1[1])
+
             proj_2.hideturtle()
             proj_2.goto(-500, 500)
             del(proj_2)
