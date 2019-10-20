@@ -1,8 +1,8 @@
 import bullet
+import random
 import support
 import tank
 import turtle
-import random
 
 # fecha a tela
 playing = True
@@ -31,22 +31,19 @@ def create_zone(zone):
             x += 8.3
         y -= 16.3
 
+
 # define as funções das teclas
-
-
 def key_map(screen):
     # primeiro tanque
     screen.onkeypress(tank.rotate_left_1, 'a')
     screen.onkeypress(tank.rotate_right_1, 'd')
     screen.onkeypress(tank.go_ahead_1, 'w')
     screen.onkeypress(bullet.shooter_one, 'space')
-
     # segundo tanque
     screen.onkeypress(tank.rotate_left_2, 'Left')
     screen.onkeypress(tank.rotate_right_2, 'Right')
     screen.onkeypress(tank.go_ahead_2, 'Up')
     screen.onkeypress(bullet.shooter_two, 'o')
-
     # sair do jogo
     screen.onkeypress(close_screen, 'Escape')
 
@@ -99,28 +96,30 @@ def char_interplay():
 
     # colisão do projétil 1 com o tanque 2
     for proj_1 in bullet.shot_one_list:
-        if (tank.two.distance(proj_1)) <= 25:
-            if proj_1.isvisible():
-                score_1 += 1
-                pos_random_2 = random.choice(not_wall_list)
-                tank.two.goto(pos_random_2[0], pos_random_2[1])
-
+        if tank.two.distance(proj_1) <= 25 and proj_1.isvisible():
+            # aumento da pontuação
+            score_1 += 1
+            hud_score.clear()
+            support.write(hud_score, '{} : {}'.format(score_1, score_2))
+            # mudança da posição do tanque atingido
+            pos_random_2 = random.choice(not_wall_list)
+            tank.two.goto(pos_random_2[0], pos_random_2[1])
+            # deletando o projétil
             proj_1.hideturtle()
             proj_1.goto(500, 500)
             del(proj_1)
-            hud_score.clear()
-            support.write(hud_score, '{} : {}'.format(score_1, score_2))
 
     # colisão do projétil 2 com o tanque 1
     for proj_2 in bullet.shot_two_list:
-        if (tank.one.distance(proj_2)) <= 25:
-            if proj_2.isvisible():
-                score_2 += 1
-                pos_random_1 = random.choice(not_wall_list)
-                tank.one.goto(pos_random_1[0], pos_random_1[1])
-
+        if tank.one.distance(proj_2) <= 25 and proj_2.isvisible():
+            # aumento da pontuação
+            score_2 += 1
+            hud_score.clear()
+            support.write(hud_score, '{} : {}'.format(score_1, score_2))
+            # mudança da posição do tanque atingido
+            pos_random_1 = random.choice(not_wall_list)
+            tank.one.goto(pos_random_1[0], pos_random_1[1])
+            # deletando o projétil
             proj_2.hideturtle()
             proj_2.goto(-500, 500)
             del(proj_2)
-            hud_score.clear()
-            support.write(hud_score, '{} : {}'.format(score_1, score_2))

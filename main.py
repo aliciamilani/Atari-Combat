@@ -1,10 +1,6 @@
 import match
 import sys
 import turtle
-import random
-
-warzones = ['warzone1.txt', 'warzone2.txt',
-            'warzone3.txt', 'warzone4.txt', 'warzone5.txt']
 
 # criação da tela
 screen = turtle.Screen()
@@ -14,7 +10,7 @@ screen.setup(width=800, height=600)
 screen.tracer(100000)
 
 # criação do cenário
-match.create_zone(random.choice(warzones))
+match.create_zone('zones/'+sys.argv[1])
 
 # mapeamento das teclas
 screen.listen()
