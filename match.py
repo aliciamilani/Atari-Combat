@@ -106,6 +106,8 @@ def char_interplay():
     # colisão do projétil 1 com o tanque 2
     for proj_1 in bullet.shot_one_list:
         if tank.two.distance(proj_1) <= 25 and proj_1.isvisible():
+            # musica
+            sounds.play_shot()
             # aumento da pontuação
             score_1 += 1
             hud_score.clear()
@@ -121,6 +123,8 @@ def char_interplay():
     # colisão do projétil 2 com o tanque 1
     for proj_2 in bullet.shot_two_list:
         if tank.one.distance(proj_2) <= 25 and proj_2.isvisible():
+            # musica
+            sounds.play_shot()
             # aumento da pontuação
             score_2 += 1
             hud_score.clear()
