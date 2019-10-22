@@ -3,6 +3,11 @@ import random
 import support
 import tank
 import turtle
+from time import sleep
+
+
+# pontos maximos
+max_score = 1
 
 # fecha a tela
 playing = True
@@ -27,7 +32,7 @@ def create_zone(zone):
             if block == '1':
                 wall_list.append(support.draw('square', 1, '#f7d4ab', x, y))
             elif block == '0':
-                not_wall_list.append([x-8.3, y+16.3])
+                not_wall_list.append([x-10, y+20])
             x += 8.3
         y -= 16.3
 
@@ -50,7 +55,11 @@ def key_map(screen):
 
 # criação do painel da pontuação
 hud_score = support.draw('square', 1, 'white', 0, 250)
+hud_victory = support.draw('square', 0.1, 'white', 0, -15)
+
+hud_victory.hideturtle() 
 hud_score.hideturtle()
+
 support.write(hud_score, '0 : 0')
 score_1 = score_2 = 0
 
@@ -123,3 +132,20 @@ def char_interplay():
             proj_2.hideturtle()
             proj_2.goto(-500, 500)
             del(proj_2)
+    
+    
+    # verificando pontuação final - PLAYER 1 WIN
+    if (score_1 == max_score):
+        hud_score.clear()
+        support.write(hud_victory, 'PLAYER 1 WINS!!!')
+        hud_victory.showturtle()
+        # sleep(2)
+        # close_screen()
+    
+    # verificando pontuação final - PLAYER 2 WIN
+    if (score_2 == max_score):
+        hud_score.clear()
+        support.write(hud_victory, 'PLAYER 2 WINS!!!')
+        hud_victory.showturtle()
+        # sleep(2)
+        # close_screen()
