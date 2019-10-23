@@ -1,3 +1,7 @@
+# Som de vitória - https://freesound.org/people/rezyma/sounds/475148/
+
+from os import system
+from time import sleep
 import turtle
 
 
@@ -14,3 +18,12 @@ def draw(shape, size, color, x, y):
 
 def write(element, exp):
     element.write(exp, align='center', font=('Press Start 2P', 24, 'normal'))
+
+
+def play_victory():
+    system("aplay sounds/victory.wav")
+    sleep(2)
+
+
+def play_shot():
+    system("aplay sounds/shot.wav")

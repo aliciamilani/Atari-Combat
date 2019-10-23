@@ -3,11 +3,6 @@ import random
 import support
 import tank
 import turtle
-import sounds
-from time import sleep
-
-# pontos maximos
-max_score = 5
 
 # fecha a tela
 playing = True
@@ -27,7 +22,7 @@ def create_zone(zone):
     not_wall_list = []
     y = 220
     for line in field:
-        x = -392
+        x = -398
         for block in line:
             if block == '1':
                 wall_list.append(support.draw('square', 1, '#f7d4ab', x, y))
@@ -55,13 +50,18 @@ def key_map(screen):
 
 # criação do painel da pontuação
 hud_score = support.draw('square', 1, 'white', 0, 250)
-hud_victory = support.draw(None, None, 'white', 0, -15)
-
-hud_victory.hideturtle()
 hud_score.hideturtle()
-
 support.write(hud_score, '0 : 0')
 score_1 = score_2 = 0
+
+
+# criação do painel da vitória
+def victory(player_num):
+    hud_victory = support.draw(None, None, 'white', 0, -15)
+    hud_victory.hideturtle()
+    support.write(hud_victory, 'PLAYER {} WINS!!!'.format(player_num))
+    support.play_victory()
+    close_screen()
 
 
 # interação entre os elementos do jogo
@@ -106,15 +106,15 @@ def char_interplay():
     # colisão do projétil 1 com o tanque 2
     for proj_1 in bullet.shot_one_list:
         if tank.two.distance(proj_1) <= 25 and proj_1.isvisible():
-            # musica
-            sounds.play_shot()
+            # som da colisão
+            support.play_shot()
             # aumento da pontuação
             score_1 += 1
             hud_score.clear()
             support.write(hud_score, '{} : {}'.format(score_1, score_2))
             # mudança da posição do tanque atingido
             pos_random_2 = random.choice(not_wall_list)
-            tank.two.goto(pos_random_2[0] - 50, pos_random_2[1] -25)
+            tank.two.goto(pos_random_2[0] - 50, pos_random_2[1] - 25)
             # deletando o projétil
             proj_1.hideturtle()
             proj_1.goto(500, 500)
@@ -123,8 +123,8 @@ def char_interplay():
     # colisão do projétil 2 com o tanque 1
     for proj_2 in bullet.shot_two_list:
         if tank.one.distance(proj_2) <= 25 and proj_2.isvisible():
-            # musica
-            sounds.play_shot()
+            # som da colisão
+            support.play_shot()
             # aumento da pontuação
             score_2 += 1
             hud_score.clear()
@@ -137,18 +137,10 @@ def char_interplay():
             proj_2.goto(-500, 500)
             del(proj_2)
 
-    # verificando pontuação final - PLAYER 1 WIN
-    if (score_1 == max_score):
-        support.write(hud_victory, 'PLAYER 1 WINS!!!')
-        hud_victory.showturtle()
-        sounds.play_victory()
-        sleep(0.1)
-        close_screen()
+    # verificando pontuação final do player 1
+    if score_1 == 5:
+        victory(1)
 
-    # verificando pontuação final - PLAYER 2 WIN
-    if (score_2 == max_score):
-        support.write(hud_victory, 'PLAYER 2 WINS!!!')
-        hud_victory.showturtle()
-        sounds.play_victory()
-        sleep(0.1)
-        close_screen()
+    # verificando pontuação final do player 2
+    if score_2 == 2:
+        victory(2)

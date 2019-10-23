@@ -28,10 +28,10 @@ def tank_shape():
 screen.register_shape('tank', tank_shape())
 
 # criação do primeiro tanque
-one = draw('tank', 1, '#2441a1', -350, 0)
+one = draw('tank', 1, '#2441a1', -350, -14)
 
 # criação do segundo tanque
-two = draw('tank', 1, '#a83232', 350, 0)
+two = draw('tank', 1, '#a83232', 350, -14)
 two.setheading(180)
 
 
