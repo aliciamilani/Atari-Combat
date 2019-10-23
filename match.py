@@ -82,7 +82,7 @@ def tank_collision(shot_list, tank_hit, player_num):
             support.write(hud_score, '{} : {}'.format(score_1, score_2))
             # mudança da posição do tanque atingido
             pos_random = random.choice(not_wall_list)
-            tank_hit.goto(pos_random[0] - 50, pos_random[1] - 25)
+            tank_hit.goto(pos_random[0], pos_random[1])
             # deletando o projétil
             proj.hideturtle()
             del(proj)

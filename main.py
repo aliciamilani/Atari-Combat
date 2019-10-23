@@ -1,6 +1,7 @@
 import match
 import sys
 import turtle
+import bullet
 
 # criação da tela
 screen = turtle.Screen()
