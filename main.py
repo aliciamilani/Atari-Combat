@@ -6,7 +6,7 @@ import turtle
 screen = turtle.Screen()
 screen.title('ATARI: COMBAT TANK')
 screen.bgcolor('#5e9e4a')
-screen.setup(width=800, height=600)
+screen.setup(width=900, height=600)
 screen.tracer(100000)
 
 # criação do cenário

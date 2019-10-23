@@ -32,7 +32,7 @@ def create_zone(zone):
             if block == '1':
                 wall_list.append(support.draw('square', 1, '#f7d4ab', x, y))
             elif block == '0':
-                not_wall_list.append([x-10, y+20])
+                not_wall_list.append([x, y])
             x += 8.3
         y -= 16.3
 
@@ -114,7 +114,7 @@ def char_interplay():
             support.write(hud_score, '{} : {}'.format(score_1, score_2))
             # mudança da posição do tanque atingido
             pos_random_2 = random.choice(not_wall_list)
-            tank.two.goto(pos_random_2[0], pos_random_2[1])
+            tank.two.goto(pos_random_2[0] - 50, pos_random_2[1] -25)
             # deletando o projétil
             proj_1.hideturtle()
             proj_1.goto(500, 500)
