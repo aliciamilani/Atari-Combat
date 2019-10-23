@@ -48,3 +48,10 @@ def shooting_two():
 def shooter_two():
     create_shooter_two()
     shooting_two()
+
+
+# movimentação dos projéteis
+def shot_move(shot_list):
+    for proj in shot_list:
+        proj.setx(proj.xcor() + proj.dx)
+        proj.sety(proj.ycor() + proj.dy)

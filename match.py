@@ -55,6 +55,39 @@ support.write(hud_score, '0 : 0')
 score_1 = score_2 = 0
 
 
+# colisão dos projéteis com o labirinto
+def wall_collision(shot_list):
+    for proj in shot_list:
+        for wall in wall_list:
+            if (wall.distance(proj)) <= 15:
+                proj.hideturtle()
+                del(proj)
+                break
+
+
+# colisão dos projéteis com os tanques
+def tank_collision(shot_list, tank_hit, player_num):
+    for proj in shot_list:
+        if tank_hit.distance(proj) <= 25 and proj.isvisible():
+            # som da colisão
+            support.play_shot()
+            # aumento da pontuação
+            global score_1
+            global score_2
+            if player_num == 1:
+                score_1 += 1
+            elif player_num == 2:
+                score_2 += 1
+            hud_score.clear()
+            support.write(hud_score, '{} : {}'.format(score_1, score_2))
+            # mudança da posição do tanque atingido
+            pos_random = random.choice(not_wall_list)
+            tank_hit.goto(pos_random[0] - 50, pos_random[1] - 25)
+            # deletando o projétil
+            proj.hideturtle()
+            del(proj)
+
+
 # criação do painel da vitória
 def victory(player_num):
     hud_victory = support.draw(None, None, 'white', 0, -15)
@@ -75,72 +108,25 @@ def char_interplay():
             tank.two.forward(-20)
 
     # movimentação do projétil 1
-    for proj_1 in bullet.shot_one_list:
-        proj_1.setx(proj_1.xcor() + proj_1.dx)
-        proj_1.sety(proj_1.ycor() + proj_1.dy)
+    bullet.shot_move(bullet.shot_one_list)
 
     # movimentação do projétil 2
-    for proj_2 in bullet.shot_two_list:
-        proj_2.setx(proj_2.xcor() + proj_2.dx)
-        proj_2.sety(proj_2.ycor() + proj_2.dy)
+    bullet.shot_move(bullet.shot_two_list)
 
     # colisão do projétil 1 com o labirinto
-    for proj_1 in bullet.shot_one_list:
-        for wall in wall_list:
-            if (wall.distance(proj_1)) <= 15:
-                proj_1.hideturtle()
-                del(proj_1)
-                break
+    wall_collision(bullet.shot_one_list)
 
     # colisão do projétil 2 com o labirinto
-    for proj_2 in bullet.shot_two_list:
-        for wall in wall_list:
-            if (wall.distance(proj_2)) <= 15:
-                proj_2.hideturtle()
-                del(proj_2)
-                break
-
-    global score_1
-    global score_2
+    wall_collision(bullet.shot_two_list)
 
     # colisão do projétil 1 com o tanque 2
-    for proj_1 in bullet.shot_one_list:
-        if tank.two.distance(proj_1) <= 25 and proj_1.isvisible():
-            # som da colisão
-            support.play_shot()
-            # aumento da pontuação
-            score_1 += 1
-            hud_score.clear()
-            support.write(hud_score, '{} : {}'.format(score_1, score_2))
-            # mudança da posição do tanque atingido
-            pos_random_2 = random.choice(not_wall_list)
-            tank.two.goto(pos_random_2[0] - 50, pos_random_2[1] - 25)
-            # deletando o projétil
-            proj_1.hideturtle()
-            proj_1.goto(500, 500)
-            del(proj_1)
+    tank_collision(bullet.shot_one_list, tank.two, 1)
 
     # colisão do projétil 2 com o tanque 1
-    for proj_2 in bullet.shot_two_list:
-        if tank.one.distance(proj_2) <= 25 and proj_2.isvisible():
-            # som da colisão
-            support.play_shot()
-            # aumento da pontuação
-            score_2 += 1
-            hud_score.clear()
-            support.write(hud_score, '{} : {}'.format(score_1, score_2))
-            # mudança da posição do tanque atingido
-            pos_random_1 = random.choice(not_wall_list)
-            tank.one.goto(pos_random_1[0], pos_random_1[1])
-            # deletando o projétil
-            proj_2.hideturtle()
-            proj_2.goto(-500, 500)
-            del(proj_2)
+    tank_collision(bullet.shot_two_list, tank.one, 2)
 
-    # verificando pontuação final do player 1
+    # verificando a condição de vitória
     if score_1 == 5:
         victory(1)
-
-    # verificando pontuação final do player 2
-    if score_2 == 2:
+    elif score_2 == 5:
         victory(2)
