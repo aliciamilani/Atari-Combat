@@ -11,7 +11,7 @@ screen.setup(width=900, height=600)
 screen.tracer(100000)
 
 # criação do cenário
-match.create_zone('zones/'+sys.argv[1])
+match.create_zone('zones/warzone'+sys.argv[1]+".txt")
 
 # mapeamento das teclas
 screen.listen()
